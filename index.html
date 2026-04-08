@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masters 2026 — Make Your Picks</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-deep: #0e2a0e;
+  --green-mid: #1a4a1a;
+  --green-bright: #2d7a2d;
+  --gold: #c8a84b;
+  --gold-light: #e8d080;
+  --cream: #faf8f2;
+  --cream-dark: #f0ece0;
+  --text: #1a1a14;
+  --text-mid: #4a4a3a;
+  --text-light: #8a8a7a;
+  --white: #ffffff;
+  --red: #c0392b;
+  --border: rgba(200,168,75,0.25);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* HERO */
+.hero {
+  background: var(--green-deep);
+  padding: 48px 40px 40px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 3px solid var(--gold);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 60px,
+    rgba(255,255,255,0.015) 60px,
+    rgba(255,255,255,0.015) 61px
+  );
+}
+.hero-inner { position: relative; max-width: 860px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 54px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+.hero h1 span { color: var(--gold); }
+.hero-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+/* MAIN LAYOUT */
+.container { max-width: 860px; margin: 0 auto; padding: 36px 24px 80px; }
+
+/* NAME FIELD */
+.name-section {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.name-section label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+.name-input {
+  flex: 1;
+  border: none;
+  border-bottom: 2px solid var(--cream-dark);
+  padding: 8px 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text);
+  background: transparent;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.name-input:focus { border-bottom-color: var(--gold); }
+.name-input::placeholder { color: #ccc; font-weight: 300; }
+/* RULES BANNER */
+.rules-banner {
+  background: var(--cream-dark);
+  border-bottom: 2px solid var(--gold);
+  padding: 20px 40px;
+}
+.rules-banner-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.rules-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin-bottom: 10px;
+}
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+.rule-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-mid);
+}
+.rule-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.rule-item strong { color: var(--green-deep); font-weight: 600; }
+.rule-item em { color: var(--red); font-style: normal; font-weight: 600; }
+@media (max-width: 600px) {
+  .rules-banner { padding: 16px; }
+  .rules-grid { grid-template-columns: 1fr; }
+}
+.email-input {
+  flex: 1;
+  border: none;
+  border-bottom: 2px solid var(--cream-dark);
+  padding: 8px 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text);
+  background: transparent;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.email-input:focus { border-bottom-color: var(--gold); }
+.email-input::placeholder { color: #ccc; font-weight: 300; }
+
+
+/* CATEGORY CARDS */
+.categories { display: flex; flex-direction: column; gap: 20px; margin-bottom: 28px; }
+
+.cat-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.cat-card:has(.selected) { border-color: var(--gold); box-shadow: 0 2px 20px rgba(200,168,75,0.12); }
+
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid var(--cream-dark);
+}
+.cat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--cream-dark);
+  line-height: 1;
+  margin-right: 16px;
+  min-width: 40px;
+}
+.cat-card:has(.selected) .cat-num { color: var(--gold-light); }
+.cat-info { flex: 1; }
+.cat-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.cat-subtitle {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 400;
+}
+.cat-selected-badge {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-mid);
+  background: #e8f5e8;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: none;
+  align-items: center;
+  gap: 6px;
+}
+.cat-card:has(.selected) .cat-selected-badge { display: flex; }
+.cat-selected-badge .check { color: var(--green-bright); font-size: 14px; }
+
+/* SEARCH */
+.cat-search-wrap {
+  padding: 14px 20px 10px;
+  position: relative;
+}
+.cat-search {
+  width: 100%;
+  padding: 9px 14px 9px 36px;
+  border: 1px solid #e8e8e0;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--cream);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.cat-search:focus { border-color: var(--gold); background: white; }
+.search-icon {
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* GOLFER GRID */
+.golfer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  padding: 4px 20px 20px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.golfer-grid::-webkit-scrollbar { width: 4px; }
+.golfer-grid::-webkit-scrollbar-track { background: transparent; }
+.golfer-grid::-webkit-scrollbar-thumb { background: var(--cream-dark); border-radius: 2px; }
+
+.golfer-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #eeeee8;
+  border-radius: 8px;
+  background: var(--cream);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+}
+.golfer-btn:hover { border-color: var(--gold); background: #fffdf5; }
+.golfer-btn.selected {
+  border-color: var(--green-mid);
+  background: #e8f5e8;
+}
+.golfer-btn.hidden { display: none; }
+
+.g-rank {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-light);
+  min-width: 22px;
+  text-align: right;
+}
+.golfer-btn.selected .g-rank { color: var(--green-bright); }
+.g-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+}
+.g-check {
+  font-size: 14px;
+  color: var(--green-bright);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.golfer-btn.selected .g-check { opacity: 1; }
+
+.no-results-msg {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* TIEBREAKER */
+.tiebreaker-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+.tb-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+.tb-desc {
+  font-size: 13px;
+  color: var(--text-mid);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.tb-input-wrap { display: flex; align-items: center; gap: 10px; }
+.tb-prefix {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-light);
+}
+.tb-input {
+  width: 120px;
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  border: none;
+  border-bottom: 3px solid var(--cream-dark);
+  padding: 4px 8px;
+  background: transparent;
+  outline: none;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.tb-input:focus { border-bottom-color: var(--gold); }
+.tb-hint { font-size: 12px; color: var(--text-light); }
+
+/* SUBMIT */
+.submit-section { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.submit-btn {
+  width: 100%;
+  max-width: 420px;
+  padding: 18px 32px;
+  background: var(--green-deep);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.submit-btn:hover:not(:disabled) { background: var(--gold); color: var(--green-deep); }
+.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.submit-hint { font-size: 12px; color: var(--text-light); text-align: center; }
+
+/* ENTRY SUMMARY CARD */
+.summary-card {
+  display: none;
+  background: var(--green-deep);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 28px;
+  animation: fadeIn 0.4s ease;
+}
+.summary-card.visible { display: block; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.summary-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.summary-name {
+  font-size: 28px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(200,168,75,0.3);
+}
+.summary-picks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.summary-pick {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sp-cat {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  min-width: 140px;
+}
+.sp-golfer {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+.sp-rank {
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 600;
+  background: rgba(200,168,75,0.15);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.summary-tb {
+  text-align: center;
+  padding: 16px;
+  border: 1px solid rgba(200,168,75,0.3);
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+.summary-tb .tb-label-s { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+.summary-tb .tb-val { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; color: var(--gold); }
+.print-btn {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid rgba(200,168,75,0.4);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+.print-btn:hover { background: rgba(200,168,75,0.1); }
+.reset-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: rgba(255,255,255,0.35);
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: color 0.2s;
+}
+.reset-btn:hover { color: rgba(255,255,255,0.7); }
+
+/* PROGRESS BAR */
+.progress-wrap { margin-bottom: 28px; }
+.progress-bar-bg {
+  height: 4px;
+  background: var(--cream-dark);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.progress-bar-fill {
+  height: 4px;
+  background: linear-gradient(90deg, var(--green-bright), var(--gold));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+.progress-label {
+  font-size: 12px;
+  color: var(--text-light);
+  display: flex;
+  justify-content: space-between;
+}
+
+@media print {
+  .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .categories, .name-section, .tiebreaker-card, .submit-section, .progress-wrap { display: none !important; }
+  .summary-card { display: block !important; }
+}
+@media (max-width: 600px) {
+  .hero { padding: 32px 20px 28px; }
+  .container { padding: 24px 16px 60px; }
+  .golfer-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Augusta National · 2026</div>
+    <h1>The Masters<br><span>Pick Sheet</span></h1>
+    <p class="hero-sub">Select one golfer per category · Categories based on Official World Golf Ranking (OWGR) · Final Field, April 7, 2026</p>
+  </div>
+</div>
+
+<div class="rules-banner">
+  <div class="rules-banner-inner">
+    <div class="rules-title">&#9971; Pool Rules &amp; Scoring</div>
+    <div class="rules-grid">
+      <div class="rule-item">
+        <span class="rule-icon">🏌️</span>
+        <span><strong>5 Picks:</strong> Select one golfer from each OWGR category — Top 10, Rank 11–30, Rank 31–50, Rank 51+, and LIV Golfer.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">✂️</span>
+        <span><strong>Best 4 Score:</strong> Your worst-scoring golfer is dropped. Only your best 4 scores count.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">✂️</span>
+        <span><strong>Missed Cuts:</strong> A player who does not make the cut will automatically receive the highest score carded in the tournament for each remaining round.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">🏆</span>
+        <span><strong>Tiebreaker:</strong> Guess the winner's final score to par (e.g. -11). If still tied, whoever has the best finishing player in their foursome wins.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">⚠️</span>
+        <span><em>LIV Restriction:</em> LIV golfers are excluded from their respective OWGR tiers and must be selected in the dedicated LIV category only. <em>You may not pick a LIV golfer in the Rank 51+ category.</em></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- VIEW ALL ENTRIES BUTTON -->
+  <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
+    <button onclick="window.open(SCRIPT_URL,'_blank')" style="background:var(--green-deep);color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:9px 18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.3px;">&#127942; View All Entries</button>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div class="progress-label">
+      <span id="progressText">0 of 5 categories picked</span>
+      <span id="progressPct">0%</span>
+    </div>
+  </div>
+
+  <!-- NAME + EMAIL -->
+  <div class="name-section" style="flex-direction:column; gap:12px; align-items:stretch;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <label style="min-width:80px;">Your Name</label>
+      <input class="name-input" id="entryName" type="text" placeholder="Enter your name..." autocomplete="off" oninput="updateProgress()">
+    </div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <label style="min-width:80px; font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-light);">Email</label>
+      <input class="email-input" id="entryEmail" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+  </div>
+
+  <!-- TIEBREAKER -->
+  <div class="name-section" style="flex-direction:column; gap:12px; align-items:stretch;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <label style="min-width:120px; font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-light);">Tiebreaker</label>
+      <input class="email-input" id="tiebreakerInput" type="text" placeholder="e.g. -11 (winner's score to par)" autocomplete="off">
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="categories" id="categoriesContainer"></div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <button class="submit-btn" id="submitBtn" onclick="submitEntry()" disabled>Lock In My Picks</button>
+    <div class="submit-hint" id="submitHint">Select a golfer in each category and enter your tiebreaker to submit</div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-card" id="summaryCard">
+    <div class="summary-title">Your Entry</div>
+    <div class="summary-name" id="summaryName"></div>
+    <div id="summaryEmail" style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:-16px;margin-bottom:16px;display:none;"></div>
+    <div id="summaryTimestamp" style="font-size:11px;letter-spacing:1px;color:var(--gold);opacity:0.7;margin-bottom:20px;"></div>
+    <div class="summary-picks" id="summaryPicks"></div>
+    <button class="print-btn" onclick="window.print()" style="margin-bottom:8px;">&#128438; Print / Save as PDF</button>
+    <button class="print-btn" onclick="window.open(SCRIPT_URL,'_blank')" style="background:rgba(200,168,75,0.1);">&#127942; View All Entries</button>
+    <button class="reset-btn" onclick="resetForm()">Start over with new picks</button>
+  </div>
+
+
+  <div id="leaderboardView" style="display:none;">
+    <div class="lb-count" id="lbCount">Loading entries...</div>
+    <div id="lbError" style="display:none;" class="lb-error"></div>
+    <div class="lb-wrap">
+      <table class="lb-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Top 10</th>
+            <th>Rank 11–30</th>
+            <th>Rank 31–50</th>
+            <th>Rank 51+</th>
+            <th>LIV</th>
+            <th>Submitted</th>
+          </tr>
+        </thead>
+        <tbody id="lbBody"><tr><td colspan="8" class="lb-empty">No entries yet — be the first!</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── 2026 MASTERS FIELD — OWGR from official CSV (Week 12, 22 March 2026)
+// masters.com invitees 03/26/2026. LIV verified: livgolf.com/teams + foxsports LIV rankings.
+// Rules: LIV on livgolf.com → LIV category (no OWGR shown, even if past champ).
+// Non-LIV: OWGR rank drives category. Rank ≥300 or unranked → "Past Champ" label.
+
+const TOP10 = [
+  {rank:1,  name:"Scottie Scheffler"},
+  {rank:2,  name:"Rory McIlroy"},
+  {rank:3,  name:"Justin Rose"},
+  {rank:4,  name:"Tommy Fleetwood"},
+  {rank:5,  name:"Chris Gotterup"},
+  {rank:6,  name:"Russell Henley"},
+  {rank:7,  name:"J.J. Spaun"},
+  {rank:8,  name:"Robert MacIntyre"},
+  {rank:9,  name:"Ben Griffin"},
+  {rank:10, name:"Xander Schauffele"},
+];
+
+const RANK11_30 = [
+  {rank:11, name:"Hideki Matsuyama"},
+  {rank:12, name:"Justin Thomas"},
+  {rank:13, name:"Harris English"},
+  {rank:14, name:"Sepp Straka"},
+  {rank:15, name:"Viktor Hovland"},
+  {rank:16, name:"Alex Noren"},
+  {rank:17, name:"Patrick Reed"},
+  {rank:18, name:"Keegan Bradley"},
+  {rank:19, name:"Collin Morikawa"},
+  {rank:20, name:"Ludvig Aberg"},
+  {rank:21, name:"Cameron Young"},
+  {rank:22, name:"Maverick McNealy"},
+  {rank:23, name:"Matt Fitzpatrick"},
+  {rank:24, name:"Ryan Gerard"},
+  {rank:26, name:"Si Woo Kim"},
+  {rank:27, name:"Aaron Rai"},
+  {rank:28, name:"Sam Burns"},
+  {rank:29, name:"Shane Lowry"},
+  {rank:30, name:"Patrick Cantlay"},
+];
+
+const RANK31_50 = [
+  {rank:31, name:"Marco Penge"},
+  {rank:32, name:"Corey Conners"},
+  {rank:34, name:"Jason Day"},
+  {rank:35, name:"Andrew Novak"},
+  {rank:36, name:"Matt McCarty"},
+  {rank:37, name:"Michael Brennan"},
+  {rank:38, name:"Kristoffer Reitan"},
+  {rank:39, name:"Sam Stevens"},
+  {rank:40, name:"Rasmus Hojgaard"},
+  {rank:41, name:"Michael Kim"},
+  {rank:42, name:"Kurt Kitayama"},
+  {rank:45, name:"Sami Valimaki"},
+  {rank:46, name:"Brian Harman"},
+  {rank:47, name:"Max Greyserman"},
+  {rank:48, name:"Akshay Bhatia"},
+  {rank:49, name:"Ryan Fox"},
+  {rank:50, name:"Nicolai Hojgaard"},
+];
+
+// Cat 4: OWGR 51+ non-LIV invitees + special qualifiers (Final field, April 7 2026)
+const RANK51_PLUS = [
+  {rank:52,  name:"Min Woo Lee",                label:"#52"},
+  {rank:53,  name:"Daniel Berger",              label:"#53"},
+  {rank:54,  name:"Rasmus Neergaard-Petersen",  label:"#54"},
+  {rank:55,  name:"Jacob Bridgeman",            label:"#55"},
+  {rank:56,  name:"Wyndham Clark",              label:"#56"},
+  {rank:57,  name:"John Keefer",                label:"#57"},
+  {rank:58,  name:"Nick Taylor",                label:"#58"},
+  {rank:59,  name:"Harry Hall",                 label:"#59"},
+  {rank:62,  name:"Jake Knapp",                 label:"#62"},
+  {rank:64,  name:"Sungjae Im",                 label:"#64"},
+  {rank:65,  name:"Nicolas Echavarria",         label:"#65"},
+  {rank:68,  name:"Haotong Li",                 label:"#68"},
+  {rank:69,  name:"Casey Jarvis",               label:"#69"},
+  {rank:70,  name:"Adam Scott",                 label:"#70"},
+  {rank:81,  name:"Brian Campbell",             label:"#81"},
+  {rank:89,  name:"Jordan Spieth",              label:"#89"},
+  {rank:94,  name:"Aldrich Potgieter",          label:"#94"},
+  {rank:98,  name:"Davis Riley",                label:"#98"},
+  {rank:148, name:"Max Homa",                   label:"#148"},
+  {rank:162, name:"Brooks Koepka",              label:"#162"},
+  {rank:353, name:"Naoyuki Kataoka",            label:"#353"},
+  {rank:null, name:"Gary Woodland",             label:"PGA Tour Win"},
+  {rank:null, name:"Zach Johnson",              label:"Past Champ"},
+  {rank:null, name:"Danny Willett",             label:"Past Champ"},
+  {rank:null, name:"Angel Cabrera",             label:"Past Champ"},
+  {rank:null, name:"Vijay Singh",               label:"Past Champ"},
+  {rank:null, name:"Fred Couples",              label:"Past Champ"},
+  {rank:null, name:"Mike Weir",                 label:"Past Champ"},
+  {rank:null, name:"José María Olazábal",       label:"Past Champ"},
+];
+
+// LIV: confirmed on livgolf.com roster AND in 2026 Masters field
+// Tiger Woods & Phil Mickelson have withdrawn — not included
+const LIV = [
+  {name:"Bryson DeChambeau"},
+  {name:"Jon Rahm"},
+  {name:"Tyrrell Hatton"},
+  {name:"Cameron Smith"},
+  {name:"Dustin Johnson"},
+  {name:"Sergio Garcia"},
+  {name:"Tom McKibbin"},
+  {name:"Carlos Ortiz"},
+  {name:"Charl Schwartzel"},
+  {name:"Bubba Watson"},
+];
+
+// Deduplicate by name within each category
+function dedup(arr) {
+  const seen = new Set();
+  return arr.filter(g => { if(seen.has(g.name)) return false; seen.add(g.name); return true; });
+}
+
+const CATEGORIES = [
+  { id:'cat1', label:'Category 1', title:'OWGR Top 10', subtitle:'Pick from the world\'s top 10 ranked players — all confirmed 2026 Masters invitees', golfers: dedup(TOP10) },
+  { id:'cat2', label:'Category 2', title:'OWGR Rank 11–30', subtitle:'Pick from players ranked 11–30 — confirmed in the 2026 Masters field', golfers: dedup(RANK11_30) },
+  { id:'cat3', label:'Category 3', title:'OWGR Rank 31–50', subtitle:'Pick from players ranked 31–50 — confirmed in the 2026 Masters field', golfers: dedup(RANK31_50) },
+  { id:'cat4', label:'Category 4', title:'OWGR Rank 51+ / Special Invites', subtitle:'Ranked 51+ or qualified via national opens, PGA Tour wins, etc.', golfers: dedup(RANK51_PLUS) },
+  { id:'cat5', label:'Category 5', title:'LIV Golfer', subtitle:'Pick a confirmed LIV golfer in the 2026 Masters field', golfers: dedup(LIV) },
+];
+
+const selections = { cat1: null, cat2: null, cat3: null, cat4: null, cat5: null };
+
+function buildCategories() {
+  const container = document.getElementById('categoriesContainer');
+  CATEGORIES.forEach((cat, ci) => {
+    const card = document.createElement('div');
+    card.className = 'cat-card';
+    card.id = 'card-' + cat.id;
+
+    const selectedName = selections[cat.id] || '—';
+    card.innerHTML = `
+      <div class="cat-header">
+        <div class="cat-num">${ci+1}</div>
+        <div class="cat-info">
+          <div class="cat-title">${cat.title}</div>
+          <div class="cat-subtitle">${cat.subtitle}</div>
+        </div>
+        <div class="cat-selected-badge"><span class="check">✓</span> <span id="badge-${cat.id}"></span></div>
+      </div>
+      <div class="cat-search-wrap">
+        <span class="search-icon">&#9906;</span>
+        <input class="cat-search" type="text" placeholder="Search golfers..." oninput="filterGolfers('${cat.id}', this.value)" autocomplete="off">
+      </div>
+      <div class="golfer-grid" id="grid-${cat.id}"></div>
+    `;
+    container.appendChild(card);
+
+    const grid = card.querySelector(`#grid-${cat.id}`);
+    cat.golfers.forEach(g => {
+      const btn = document.createElement('button');
+      btn.className = 'golfer-btn';
+      btn.dataset.name = g.name;
+      btn.dataset.rank = g.rank || '';
+      btn.innerHTML = `
+        <span class="g-rank">${g.label !== undefined ? g.label : (g.rank ? '#'+g.rank : 'LIV')}</span>
+        <span class="g-name">${g.name}</span>
+        <span class="g-check">✓</span>
+      `;
+      btn.onclick = () => selectGolfer(cat.id, g.name, g.rank);
+      grid.appendChild(btn);
+    });
+  });
+}
+
+function selectGolfer(catId, name, rank) {
+  selections[catId] = name;
+  const grid = document.getElementById('grid-' + catId);
+  grid.querySelectorAll('.golfer-btn').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.name === name);
+  });
+  const badge = document.getElementById('badge-' + catId);
+  if (badge) badge.textContent = name;
+  updateProgress();
+}
+
+function filterGolfers(catId, query) {
+  const grid = document.getElementById('grid-' + catId);
+  const q = query.toLowerCase().trim();
+  let visible = 0;
+  grid.querySelectorAll('.golfer-btn').forEach(btn => {
+    const match = !q || btn.dataset.name.toLowerCase().includes(q);
+    btn.classList.toggle('hidden', !match);
+    if (match) visible++;
+  });
+  let noRes = grid.querySelector('.no-results-msg');
+  if (visible === 0) {
+    if (!noRes) { noRes = document.createElement('div'); noRes.className='no-results-msg'; grid.appendChild(noRes); }
+    noRes.textContent = 'No golfers match "' + query + '"';
+  } else if (noRes) noRes.remove();
+}
+
+function updateProgress() {
+  const picked = Object.values(selections).filter(Boolean).length;
+  const nameFilled = document.getElementById('entryName').value.trim() !== '';
+  const total = 5;
+  const pct = Math.round(picked / total * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${picked} of ${total} categories picked`;
+  document.getElementById('progressPct').textContent = pct + '%';
+
+  const allDone = picked === total && nameFilled;
+  document.getElementById('submitBtn').disabled = !allDone;
+  if (!allDone) {
+    const missing = [];
+    if (!nameFilled) missing.push('your name');
+    if (picked < total) missing.push(`${total - picked} more pick${total-picked>1?'s':''}`);
+    document.getElementById('submitHint').textContent = 'Still needed: ' + missing.join(', ');
+  } else {
+    document.getElementById('submitHint').textContent = "You're all set — lock in your picks!";
+  }
+}
+
+// ── CONFIGURATION — paste your Apps Script Web App URL here ────────────
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3L7ZcBNMCmyoxblRaLE_UBLtRHoYaoHMuNyUtS_71d9umfmmWAdlhQtrWuS_uqLuzSw/exec';
+
+// ── VIEW SWITCHING ───────────────────────────────────────────────────────
+function switchView(view) {
+  const isPick = view === 'pick';
+  document.getElementById('pickView').style.display = isPick ? 'block' : 'none';
+  document.getElementById('leaderboardView').style.display = isPick ? 'none' : 'block';
+  document.getElementById('tabPick').classList.toggle('active', isPick);
+  document.getElementById('tabBoard').classList.toggle('active', !isPick);
+  if (!isPick) loadLeaderboard();
+}
+
+// ── TIMESTAMP ────────────────────────────────────────────────────────────
+function formatTimestamp(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month:'short', day:'numeric' }) + ' ' +
+         d.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true });
+}
+
+// ── SUBMIT — hidden form POST via iframe (bypasses CORS for POST) ────────
+function submitEntry() {
+  const name = document.getElementById('entryName').value.trim();
+  const email = document.getElementById('entryEmail').value.trim();
+  const tiebreaker = document.getElementById('tiebreakerInput') ? document.getElementById('tiebreakerInput').value.trim() : '';
+  const now = new Date().toISOString();
+
+  const entry = {
+    name, email, tiebreaker,
+    timestamp: now,
+    picks: {
+      cat1: selections.cat1, cat2: selections.cat2, cat3: selections.cat3,
+      cat4: selections.cat4, cat5: selections.cat5
+    }
+  };
+
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+
+  // Use XHR with no-cors — fires and forgets, enough to write to sheet
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', SCRIPT_URL, true);
+  xhr.setRequestHeader('Content-Type', 'text/plain');
+  xhr.send(JSON.stringify(entry));
+
+  // Show summary card immediately without waiting for XHR
+  setTimeout(function() {
+    document.getElementById('summaryName').textContent = name;
+    document.getElementById('summaryEmail').textContent = email || '';
+    document.getElementById('summaryEmail').style.display = email ? 'block' : 'none';
+    document.getElementById('summaryTimestamp').textContent = 'Submitted ' + formatTimestamp(now);
+
+    var picksHTML = CATEGORIES.map(function(cat) {
+      var golferName = selections[cat.id];
+      var golfer = cat.golfers.find(function(g) { return g.name === golferName; });
+      var rankTag = '';
+      if (cat.id === 'cat5') {
+        rankTag = '<span class="sp-rank">LIV</span>';
+      } else if (golfer && golfer.rank) {
+        rankTag = '<span class="sp-rank">OWGR #' + golfer.rank + '</span>';
+      } else if (golfer && golfer.label) {
+        rankTag = '<span class="sp-rank">' + golfer.label + '</span>';
+      }
+      return '<div class="summary-pick"><span class="sp-cat">' + cat.title + '</span><span class="sp-golfer">' + golferName + '</span>' + rankTag + '</div>';
+    }).join('');
+
+    document.getElementById('summaryPicks').innerHTML = picksHTML;
+
+    var card = document.getElementById('summaryCard');
+    card.classList.add('visible');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 800);
+}
+
+function resetForm() {
+  CATEGORIES.forEach(function(cat) { selections[cat.id] = null; });
+  document.getElementById('entryName').value = '';
+  document.getElementById('entryEmail').value = '';
+  document.getElementById('summaryCard').classList.remove('visible');
+  document.querySelectorAll('.golfer-btn').forEach(function(btn) { btn.classList.remove('selected'); });
+  document.querySelectorAll('[id^="badge-"]').forEach(function(el) { el.textContent = ''; });
+  document.querySelectorAll('.cat-search').forEach(function(el) { el.value = ''; });
+  document.querySelectorAll('.golfer-btn').forEach(function(btn) { btn.classList.remove('hidden'); });
+  document.querySelectorAll('.no-results-msg').forEach(function(el) { el.remove(); });
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Lock In My Picks';
+  btn.disabled = true;
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+buildCategories();
+updateProgress();
+</script>
+</body>
+</html>
